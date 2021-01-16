@@ -9,5 +9,5 @@ namespace Swiftly\Template;
  */
 Class TemplateEngine
 {
-
+    
 }

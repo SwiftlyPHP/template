@@ -1,12 +1,12 @@
-= Swiftly - Template
-== About
+# Swiftly - Template
+## About
 
 // TODO
 
-== Usage
+## Usage
 
 // TODO
 
-== Reference
+## Reference
 
 // TODO
