@@ -15,7 +15,7 @@ Class Tokenizer
      *
      * @var string REGEX_IDENTIFIER
      */
-    const REGEX_IDENTIFIER = '[A-Za-z_]';
+    const REGEX_IDENTIFIER = '[A-Za-z_]+';
 
     /**
      * Regex for start of echo tag
@@ -59,4 +59,45 @@ Class Tokenizer
      */
     const REGEX_LITERAL_NUMERIC = '(\d{0,}\.)?\d';
 
+    /**
+     * The current markup line number
+     *
+     * @var int $line_number Line number
+     */
+    private $line_number = 0;
+
+    /**
+     * The current markup line offset
+     *
+     * @var int $offset Line offset
+     */
+    private $offset = 0;
+
+    /**
+     * Currently processing a tag?
+     *
+     * @var bool $in_tag Processing tag?
+     */
+    private $in_tag = false;
+
+    /**
+     * Compiled regex for markup parsing
+     *
+     * @var string $regex Compiled regex
+     */
+    private $regex;
+
+    /**
+     * Builds a new tokenizer using the provided options
+     *
+     * @param array $options (Optional) Tokenizer options
+     */
+    public function __construct( array $options = [] )
+    {
+        // TODO: Figure out options passing
+
+        $this->regex = '('
+            . \preg_quote( self::REGEX_OPEN_ECHO, '#' )
+            .
+    }
 }

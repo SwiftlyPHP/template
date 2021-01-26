@@ -13,7 +13,7 @@ use Swiftly\Template\{
  *
  * @author clvarley
  */
-Class TemplateEngine Extends TemplateInterface
+Class Engine Extends TemplateInterface
 {
 
     /**
