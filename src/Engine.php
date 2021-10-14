@@ -2,7 +2,9 @@
 
 namespace Swiftly\Template;
 
-Class Engine
+use Swiftly\Template\TemplateInterface;
+
+Class Engine Implements TemplateInterface
 {
-  
+
 }
