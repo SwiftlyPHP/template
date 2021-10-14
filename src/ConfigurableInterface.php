@@ -21,6 +21,6 @@ Interface ConfigurableInterface
      * @param int $flags Configuration flags
      * @return self      Chainable
      */
-    public function with( $flags ) /* : self */;
+    public function with( int $flags ) /* : self */;
 
 }
