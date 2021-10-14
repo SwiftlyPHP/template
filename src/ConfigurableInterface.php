@@ -3,7 +3,7 @@
 namespace Swiftly\Template;
 
 /**
- * Interface for classes that can be configured in some way
+ * Interface for classes that can be passed configuration flags
  *
  * Currently only used in combination with certain escape contexts, for instance
  * with the JsonEscaper to pass flags directly to `json_encode`. In the future
