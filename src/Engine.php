@@ -33,4 +33,13 @@ Class Engine Implements TemplateInterface
         $this->context = $context ?: new DefaultContext();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function render( string $template, array $variables = [] ) : string
+    {
+        $context = $this->context->create( $template );
+
+        return $context( $variables );
+    }
 }
