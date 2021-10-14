@@ -23,6 +23,7 @@ Class Engine Implements TemplateInterface
      * Allows you to specify how and from where templates are loaded, as well as
      * (optionally) the context they should be rendered in.
      *
+     * @no-named-arguments
      * @param FileFinder $finder        Template finder
      * @param ContextInterface $context Rendering context
      */

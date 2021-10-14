@@ -13,6 +13,7 @@ Class FileFinder
     /**
      * Create a FileFinder rooted in the given file path(s)
      *
+     * @no-named-arguments
      * @param string|string[] $file_path Root path(s)
      */
     public function __construct( $file_path )

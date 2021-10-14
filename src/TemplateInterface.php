@@ -13,6 +13,7 @@ Interface TemplateInterface
     /**
      * Render the given template with the (optionally) provided data
      *
+     * @no-named-arguments
      * @throws RenderException   Failed to render
      * @param string $template   Template name
      * @param mixed[] $variables Template data
