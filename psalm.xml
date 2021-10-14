@@ -10,4 +10,11 @@
     <projectFiles>
         <directory name="src" />
     </projectFiles>
+    <issueHandlers>
+        <UnresolvableInclude>
+            <errorLevel type="suppress">
+                <directory name="src/Context" />
+            </errorLevel>
+        </UnresolvableInclude>
+    </issueHandlers>
 </psalm>

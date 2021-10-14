@@ -2,7 +2,7 @@
 
 namespace Swiftly\Template\Exception;
 
-use \RuntimeException;
+use RuntimeException;
 
 Class RenderException Extends RuntimeException
 {
