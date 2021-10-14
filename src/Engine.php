@@ -39,11 +39,11 @@ Class Engine Implements TemplateInterface
      */
     public function render( string $template, array $variables = [] ) : string
     {
-        $template = $this->finder->find( $template );
+        $template_path = $this->finder->find( $template );
 
         // Template doesn't exist
-        if ( $template === null ) {
-            throw new TemplateNotFoundException();
+        if ( $template_path === null ) {
+            throw new TemplateNotFoundException( $template );
         }
 
         $context = $this->context->create( $template );
