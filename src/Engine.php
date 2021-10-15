@@ -9,7 +9,7 @@ use Swiftly\Template\Context\DefaultContext;
 use Swiftly\Template\Exception\MissingTemplateException;
 
 /**
- * Primary bridge class used to contextualise and render templates
+ * Facade class used to contextualise and render templates
  */
 Class Engine Implements TemplateInterface
 {
@@ -50,7 +50,7 @@ Class Engine Implements TemplateInterface
             throw new MissingTemplateException( $template );
         }
 
-        $context = $this->context->create( $template );
+        $context = $this->context->wrap( $template_path );
 
         return $context( $variables );
     }

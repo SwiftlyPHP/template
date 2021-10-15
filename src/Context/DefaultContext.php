@@ -19,7 +19,7 @@ Class DefaultContext Implements ContextInterface
     /**
      * {@inheritdoc}
      */
-    public function create( string $file_path ) : callable
+    public function wrap( string $file_path ) : callable
     {
         return static function ( array $variables ) use ($file_path) : string {
             extract( $variables, EXTR_PREFIX_SAME, '_' );

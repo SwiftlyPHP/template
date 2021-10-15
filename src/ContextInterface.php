@@ -9,7 +9,7 @@ Interface ContextInterface
 {
 
     /**
-     * Creates a new, disposable rendering context
+     * Wrappes the given template in a new, disposable rendering context
      *
      * @no-named-arguments
      * @psalm-return callable(mixed[]):string
@@ -17,6 +17,6 @@ Interface ContextInterface
      * @param string $file_path Path to template
      * @return callable         Render function
      */
-    public function create( string $template ) : callable;
+    public function wrap( string $template ) : callable;
 
 }
