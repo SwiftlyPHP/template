@@ -21,7 +21,7 @@ Class MissingTemplateException Extends RuntimeException
     {
         parent::__construct(
             sprintf(
-                'Could not find template: "%s" on the filesystem, are you sure it exists?',
+                'Could not find template "%s" on the filesystem, are you sure it exists?',
                 $template
             )
         );

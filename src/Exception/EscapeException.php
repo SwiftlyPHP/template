@@ -26,7 +26,7 @@ Class EscapeException Extends RuntimeException
     {
         parent::__construct(
             sprintf(
-                'Could not escape variable: %s using the "%s" scheme.',
+                'Could not escape variable "%s" using the "%s" scheme.',
                 is_scalar( $content ) ? (string)$content : gettype( $content ),
                 $scheme
             ),
