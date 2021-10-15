@@ -4,10 +4,13 @@ namespace Swiftly\Template\Escape;
 
 use Swiftly\Template\EscapeInterface;
 use Swiftly\Template\ConfigurableInterface;
+use JsonException;
+use Swiftly\Template\Exception\EscapeException;
 
 use function json_encode;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Escapes content for use as JSON
@@ -53,7 +56,16 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
      */
     public function escape() : string
     {
-        return json_encode( $this->content, $this->flags );
+        try {
+            $escaped = json_encode(
+                $this->content,
+                $this->flags | JSON_THROW_ON_ERROR
+            );
+        } catch ( JsonException $e ) {
+            throw new EscapeException( $this->name(), $this->content, $e );
+        }
+
+        return $escaped;
     }
 
     public function name() : string
