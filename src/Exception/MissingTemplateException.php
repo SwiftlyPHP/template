@@ -7,9 +7,9 @@ use RuntimeException;
 use function sprintf;
 
 /**
- * Exception thrown when a template cannot be found on the filesystem
+ * Exception thrown when a template cannot be found
  */
-Class TemplateNotFoundException Extends RuntimeException
+Class MissingTemplateException Extends RuntimeException
 {
 
     /**

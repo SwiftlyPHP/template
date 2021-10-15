@@ -6,7 +6,7 @@ use Swiftly\Template\TemplateInterface;
 use Swiftly\Template\FileFinder;
 use Swiftly\Template\ContextInterface;
 use Swiftly\Template\Context\DefaultContext;
-use Swiftly\Template\Exception\TemplateNotFoundException;
+use Swiftly\Template\Exception\MissingTemplateException;
 
 Class Engine Implements TemplateInterface
 {
@@ -44,7 +44,7 @@ Class Engine Implements TemplateInterface
 
         // Template doesn't exist
         if ( $template_path === null ) {
-            throw new TemplateNotFoundException( $template );
+            throw new MissingTemplateException( $template );
         }
 
         $context = $this->context->create( $template );
