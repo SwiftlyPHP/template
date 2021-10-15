@@ -15,12 +15,19 @@ use const JSON_THROW_ON_ERROR;
 /**
  * Escapes content for use as JSON
  *
- * @implements EscapeInterface<mixed>
+ * @template T
+ * @implements EscapeInterface<T>
  */
 Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
 {
 
-    /** @var mixed $content */
+    /**
+     * The content to be escaped
+     *
+     * @psalm-var T $content
+     *
+     * @var mixed $content Raw content
+     */
     private $content;
 
     /** @var int $flags */
@@ -28,6 +35,8 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
 
     /**
      * Prepare the given content to be converted to JSON
+     *
+     * @psalm-param T $content
      *
      * @param mixed $content Raw content
      */
