@@ -33,6 +33,8 @@ Interface EscapeInterface Extends Stringable
     /**
      * Returns the name of this scheme
      *
+     * @psalm-return non-empty-lowercase-string
+     *
      * @return string Scheme name
      */
     public function name() : string;
