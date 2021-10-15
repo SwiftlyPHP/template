@@ -52,7 +52,8 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
     /**
      * Escape content as JSON
      *
-     * @return string Escaped content
+     * @throws EscapeException Failed to escape
+     * @return string          Escaped content
      */
     public function escape() : string
     {
