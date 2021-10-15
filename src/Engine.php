@@ -8,6 +8,9 @@ use Swiftly\Template\ContextInterface;
 use Swiftly\Template\Context\DefaultContext;
 use Swiftly\Template\Exception\MissingTemplateException;
 
+/**
+ * Primary bridge class used to contextualise and render templates
+ */
 Class Engine Implements TemplateInterface
 {
 
