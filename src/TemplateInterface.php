@@ -2,7 +2,6 @@
 
 namespace Swiftly\Template;
 
-use Swiftly\Template\Exception\RenderException;
 use Swiftly\Template\Exception\MissingTemplateException;
 
 /**
@@ -15,7 +14,6 @@ Interface TemplateInterface
      * Render the given template with the (optionally) provided data
      *
      * @no-named-arguments
-     * @throws RenderException          Failed to render
      * @throws MissingTemplateException Failed to find template
      * @param string $template          Template name
      * @param mixed[] $variables        Template data

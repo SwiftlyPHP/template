@@ -42,7 +42,6 @@ Class Engine Implements TemplateInterface
      * Render the given PHP file and pass the given data
      *
      * @no-named-arguments
-     * @throws RenderException          Failed to render
      * @throws MissingTemplateException Failed to find template
      * @param string $template          Template name
      * @param mixed[] $variables        Template data
