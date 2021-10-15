@@ -17,7 +17,13 @@ Class DefaultContext Implements ContextInterface
 {
 
     /**
-     * {@inheritdoc}
+     * Wrappes the template in a standard PHP file include
+     *
+     * @no-named-arguments
+     * @psalm-return callable(mixed[]):string
+     *
+     * @param string $file_path Path to template
+     * @return callable         Renderable context
      */
     public function wrap( string $file_path ) : callable
     {

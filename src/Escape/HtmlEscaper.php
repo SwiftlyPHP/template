@@ -57,11 +57,23 @@ Class HtmlEscaper Implements EscapeInterface, ConfigurableInterface
         return htmlentities( $this->content, $this->flags );
     }
 
+    /**
+     * Return the short name of this scheme
+     *
+     * @psalm-return non-empty-lowercase-string
+     *
+     * @return string Scheme name
+     */
     public function name() : string
     {
         return 'html';
     }
 
+    /**
+     * Convert this object to a string by forwarding calls to escape
+     *
+     * @return string Escaped content
+     */
     public function __toString()
     {
         return $this->escape();

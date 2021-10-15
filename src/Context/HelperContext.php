@@ -58,7 +58,13 @@ Class HelperContext Implements ContextInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Wrappes the template and provides additional helper utilities
+     *
+     * @no-named-arguments
+     * @psalm-return callable(mixed[]):string
+     *
+     * @param string $file_path Path to template
+     * @return callable         Renderable context
      */
     public function wrap( string $file_path ) : callable
     {
@@ -68,17 +74,6 @@ Class HelperContext Implements ContextInterface
             require $file_path;
             return ob_get_clean() ?: '';
         };
-    }
-
-    /**
-     * Escape the given string to make it safe for use as an attribute value
-     *
-     * @param string $content   Raw content
-     * @return AttributeEscaper Attribute escape context
-     */
-    public function escapeAttribute( string $content ) : AttributeEscaper
-    {
-        return new AttributeEscaper( $content );
     }
 
     /**

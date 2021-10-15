@@ -15,7 +15,7 @@ Interface ContextInterface
      * @psalm-return callable(mixed[]):string
      *
      * @param string $file_path Path to template
-     * @return callable         Render function
+     * @return callable         Renderable context
      */
     public function wrap( string $template ) : callable;
 

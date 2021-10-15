@@ -69,11 +69,23 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
         return $escaped;
     }
 
+    /**
+     * Return the short name of this scheme
+     *
+     * @psalm-return non-empty-lowercase-string
+     *
+     * @return string Scheme name
+     */
     public function name() : string
     {
         return 'json';
     }
 
+    /**
+     * Convert this object to a string by forwarding calls to escape
+     *
+     * @return string Escaped content
+     */
     public function __toString()
     {
         return $this->escape();
