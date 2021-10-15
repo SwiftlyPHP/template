@@ -39,7 +39,14 @@ Class Engine Implements TemplateInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Render the given PHP file and pass the given data
+     *
+     * @no-named-arguments
+     * @throws RenderException          Failed to render
+     * @throws MissingTemplateException Failed to find template
+     * @param string $template          Template name
+     * @param mixed[] $variables        Template data
+     * @return string                   Rendered template
      */
     public function render( string $template, array $variables = [] ) : string
     {
