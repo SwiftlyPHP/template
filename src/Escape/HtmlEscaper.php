@@ -29,7 +29,7 @@ Class HtmlEscaper Implements EscapeInterface, ConfigurableInterface
      *
      * @param string $content Raw content
      */
-    public function __construct( string $content )
+    public function __construct( $content )
     {
         $this->content = $content;
     }
