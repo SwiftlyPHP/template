@@ -7,6 +7,12 @@ use Swiftly\Template\Escape\AttributeEscaper;
 use Swiftly\Template\Escape\HtmlEscaper;
 use Swiftly\Template\Escape\JsonEscaper;
 
+use function extract;
+use function ob_start;
+use function ob_get_clean;
+
+use const EXTR_PREFIX_SAME;
+
 /**
  * Creates a helper context around the PHP file, providing escape utilities
  */
