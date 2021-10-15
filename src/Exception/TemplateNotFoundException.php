@@ -13,7 +13,7 @@ Class TemplateNotFoundException Extends RuntimeException
 {
 
     /**
-     * Indicates the given template could not be found
+     * Indicates that the given template could not be found
      *
      * @param string $template Template name
      */
