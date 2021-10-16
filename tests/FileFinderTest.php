@@ -7,7 +7,7 @@ use Swiftly\Template\FileFinder;
 
 use function dirname;
 
-Class FileFinderTests Extends TestCase
+Class FileFinderTest Extends TestCase
 {
 
     /** @var string $root */
