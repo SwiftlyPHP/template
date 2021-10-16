@@ -10,6 +10,7 @@ use Swiftly\Template\Exception\EscapeException;
 use function json_encode;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
+use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
 /**
@@ -54,6 +55,18 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
     public function with( int $flags ) : self
     {
         $this->flags = $flags;
+
+        return $this;
+    }
+
+    /**
+     * Format and prettify the JSON becfore displaying it
+     *
+     * @return self Chainable
+     */
+    public function pretty() : self
+    {
+        $this->flags = $this->flags | JSON_PRETTY_PRINT;
 
         return $this;
     }
