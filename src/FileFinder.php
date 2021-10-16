@@ -5,7 +5,7 @@ namespace Swiftly\Template;
 use function is_file;
 
 /**
- * Basic file finder utility class
+ * Very naive file finder utility
  */
 Class FileFinder
 {

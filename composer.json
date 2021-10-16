@@ -18,5 +18,10 @@
         "psr-4": {
             "Swiftly\\Template\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Swiftly\\Template\\Tests\\": "tests/"
+        }
     }
 }
