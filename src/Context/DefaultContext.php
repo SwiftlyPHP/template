@@ -17,7 +17,7 @@ Class DefaultContext Implements ContextInterface
 {
 
     /**
-     * Wrappes the template in a standard PHP file include
+     * Wraps the template in a standard PHP file include
      *
      * @no-named-arguments
      * @psalm-return callable(mixed[]):string

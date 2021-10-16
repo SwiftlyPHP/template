@@ -9,7 +9,7 @@ Interface ContextInterface
 {
 
     /**
-     * Wrappes the given template in a new, disposable rendering context
+     * Wraps the given template in a new, disposable rendering context
      *
      * @no-named-arguments
      * @psalm-return callable(mixed[]):string

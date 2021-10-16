@@ -58,7 +58,7 @@ Class HelperContext Implements ContextInterface
     }
 
     /**
-     * Wrappes the template and provides additional helper utilities
+     * Wraps the template and provides additional helper utilities
      *
      * @no-named-arguments
      * @psalm-return callable(mixed[]):string
