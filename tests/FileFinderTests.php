@@ -24,9 +24,9 @@ Class FileFinderTests Extends TestCase
 
         $finder = new FileFinder( $src );
 
-        $file1 = $finder->find( '/Engine.php' );
-        $file2 = $finder->find( '/FileFinder.php' );
-        $file3 = $finder->find( '/Escape/JsonEscaper.php' );
+        $file1 = $finder->find( 'Engine.php' );
+        $file2 = $finder->find( 'FileFinder.php' );
+        $file3 = $finder->find( 'Escape/JsonEscaper.php' );
 
         self::assertSame( "$src/Engine.php", $file1 );
         self::assertSame( "$src/FileFinder.php", $file2 );
@@ -40,9 +40,9 @@ Class FileFinderTests Extends TestCase
 
         $finder = new FileFinder([ $src, $tests ]);
 
-        $file1 = $finder->find( '/Engine.php' );
-        $file2 = $finder->find( '/FileFinderTests.php' );
-        $file3 = $finder->find( '/Context/DefaultContextTests.php' );
+        $file1 = $finder->find( 'Engine.php' );
+        $file2 = $finder->find( 'FileFinderTests.php' );
+        $file3 = $finder->find( 'Context/DefaultContextTests.php' );
 
         self::assertSame( "$src/Engine.php", $file1 );
         self::assertSame( "$tests/FileFinderTests.php", $file2 );
@@ -56,8 +56,8 @@ Class FileFinderTests Extends TestCase
 
         $finder = new FileFinder([ $src, $tests ]);
 
-        self::assertNull( $finder->find( '/NotARealFile.php' ) );
-        self::assertNull( $finder->find( '/FinderFile.php' ) );
-        self::assertNull( $finder->find( '/HHG/42.php' ) );
+        self::assertNull( $finder->find( 'NotARealFile.php' ) );
+        self::assertNull( $finder->find( 'FinderFile.php' ) );
+        self::assertNull( $finder->find( 'HHG/42.php' ) );
     }
 }
