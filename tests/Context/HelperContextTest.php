@@ -51,6 +51,19 @@ Class HelperContextTest Extends TestCase
         self::assertSame( 'My name is: John', $result );
     }
 
+    /** @depends testCanRenderTemplate */
+    public function testCanEscapeFromWithinTemplate() : void
+    {
+        $wrap = $this->context->wrap( "{$this->templates}/advanced.php" );
+
+        $result = $wrap([ 'html' => '<div id="test"></div>' ]);
+
+        self::assertSame(
+            htmlentities( '<div id="test"></div>', ENT_QUOTES | ENT_HTML5 ),
+            $result
+        );
+    }
+
     public function testCanEscapeContentAsHtml() : void
     {
         $html = $this->context->escapeHtml( '<div id="test"></div>' );

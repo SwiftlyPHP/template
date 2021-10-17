@@ -5,7 +5,8 @@
  *
  * @package Swiftly\Template\Tests
  *
- * @var string $name
+ * @var Swiftly\Template\Context\HelperContext $this
+ * @var string $html
  */
 ?>
-My name is: <?php echo $name;
+<?php echo $this->escapeHtml( $html );
