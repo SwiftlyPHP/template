@@ -41,12 +41,12 @@ Class FileFinderTest Extends TestCase
         $finder = new FileFinder([ $src, $tests ]);
 
         $file1 = $finder->find( 'Engine.php' );
-        $file2 = $finder->find( 'FileFinderTests.php' );
-        $file3 = $finder->find( 'Context/DefaultContextTests.php' );
+        $file2 = $finder->find( 'FileFinderTest.php' );
+        $file3 = $finder->find( 'Context/DefaultContextTest.php' );
 
         self::assertSame( "$src/Engine.php", $file1 );
-        self::assertSame( "$tests/FileFinderTests.php", $file2 );
-        self::assertSame( "$tests/Context/DefaultContextTests.php", $file3 );
+        self::assertSame( "$tests/FileFinderTest.php", $file2 );
+        self::assertSame( "$tests/Context/DefaultContextTest.php", $file3 );
     }
 
     public function testReturnsNullWhenNotFound() : void
