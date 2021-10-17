@@ -33,7 +33,7 @@ Class DefaultContextTest Extends TestCase
     }
 
     /** @depends testCanContextWrapFile */
-    public function testCanRenderContext( callable $wrap ) : void
+    public function testCanRenderTemplate( callable $wrap ) : void
     {
         $result = $wrap([ 'name' => 'John' ]);
 

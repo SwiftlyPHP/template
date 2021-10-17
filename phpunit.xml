@@ -8,6 +8,7 @@
     <testsuites>
         <testsuite name="unit">
             <directory suffix=".php">tests</directory>
+            <exclude>tests/templates</exclude>
         </testsuite>
     </testsuites>
     <coverage>
