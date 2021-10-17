@@ -32,7 +32,7 @@ Class HtmlEscaperTest Extends TestCase
         self::assertSame( 'html', $this->escaper->name() );
     }
 
-    public function testCanEscapeContents() : void
+    public function testCanEscapeContent() : void
     {
         self::assertSame(
             htmlentities( self::EXAMPLE_CONTENT, ENT_QUOTES | ENT_HTML5 ),

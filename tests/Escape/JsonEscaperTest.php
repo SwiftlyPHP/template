@@ -38,7 +38,7 @@ Class JsonEscaperTest Extends TestCase
         self::assertSame( 'json', $this->escaper->name() );
     }
 
-    public function testCanEscapeContents() : void
+    public function testCanEscapeContent() : void
     {
         self::assertSame(
             json_encode( self::EXAMPLE_CONTENT, JSON_PRESERVE_ZERO_FRACTION ),
@@ -63,7 +63,7 @@ Class JsonEscaperTest Extends TestCase
         );
     }
 
-    public function testCanPrettyPrintContents() : void
+    public function testCanPrettyPrintContent() : void
     {
         self::assertSame(
             json_encode(
