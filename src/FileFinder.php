@@ -2,6 +2,8 @@
 
 namespace Swiftly\Template;
 
+use function array_map;
+use function rtrim;
 use function is_file;
 
 /**
@@ -20,7 +22,10 @@ class FileFinder
      */
     public function __construct($file_path)
     {
-        $this->file_paths = (array)$file_path;
+        $this->file_paths = array_map(
+            fn ($path) => rtrim($path, '/\\'),
+            (array)$file_path
+        );
     }
 
     /**
