@@ -7,6 +7,8 @@ use Swiftly\Template\Context\HelperContext;
 use Swiftly\Template\Escape\HtmlEscaper;
 use Swiftly\Template\Escape\JsonEscaper;
 use Swiftly\Template\EscapeInterface;
+use Swiftly\Template\Exception\MissingTemplateException;
+use Swiftly\Template\Exception\TemplateIncludeException;
 use Swiftly\Template\Exception\UnknownSchemeException;
 
 use function dirname;
@@ -49,6 +51,33 @@ Class HelperContextTest Extends TestCase
         $result = $wrap([ 'name' => 'John' ]);
 
         self::assertSame( 'My name is: John', $result );
+    }
+
+    public function testCanIncludeTemplateInSameDirectory() : void
+    {
+        $wrap = $this->context->wrap( "{$this->templates}/include-same.php" );
+
+        $result = $wrap([ 'name' => 'Douglas' ]);
+
+        self::assertSame( 'My name is: Douglas', $result );
+    }
+
+    public function testCanIncludeTemplateInSubDirectory() : void
+    {
+        $wrap = $this->context->wrap( "{$this->templates}/include-child.php" );
+
+        $result = $wrap([ 'name' => 'Arthur' ]);
+
+        self::assertSame( 'Arthur says hello from the sub directory', $result );
+    }
+
+    public function testCanIncludeTemplateInParentDirectory() : void
+    {
+        $wrap = $this->context->wrap( "{$this->templates}/example/include-parent.php" );
+
+        $result = $wrap([ 'name' => 'Zaphod' ]);
+
+        self::assertSame( 'My name is: Zaphod', $result );
     }
 
     /** @depends testCanRenderTemplate */
@@ -102,6 +131,21 @@ Class HelperContextTest Extends TestCase
 
         self::assertInstanceOf( get_class( $scheme ), $escaper );
         self::assertSame( 'some_content', (string)$escaper );
+    }
+
+    public function testThrowsOnMissingTemplate() : void
+    {
+        self::expectException( MissingTemplateException::class );
+
+        $wrap = $this->context->wrap( "{$this->templates}/include-exception.php" );
+        $wrap([]);
+    }
+
+    public function testThrowsOnDirectIncludeCall() : void
+    {
+        self::expectException( TemplateIncludeException::class );
+
+        $this->context->include( "{$this->templates}/simple.php" );
     }
 
     public function testThrowsOnUnknownEscapeScheme() : void
