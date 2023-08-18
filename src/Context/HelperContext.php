@@ -107,7 +107,7 @@ class HelperContext implements ContextInterface
      * @param mixed[] $variables Template data
      * @return string            Rendered template
      */
-    public function include(string $file_path, array $variables): string
+    public function include(string $file_path, array $variables = []): string
     {
         if (empty($this->stack)) {
             throw new TemplateIncludeException($this);
