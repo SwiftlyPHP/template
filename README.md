@@ -20,7 +20,7 @@ entities and render sub-components.
 To install the library use [Composer](https://getcomposer.org/):
 
 ```sh
-composer install swiftly/template
+composer require swiftly/template
 ```
 
 ## Usage
