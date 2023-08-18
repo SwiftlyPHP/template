@@ -17,7 +17,7 @@ use function array_pop;
 use function end;
 use function dirname;
 use function realpath;
-use function is_file;
+use function ob_end_clean;
 
 use const EXTR_PREFIX_SAME;
 
@@ -29,6 +29,8 @@ class HelperContext implements ContextInterface
     /**
      * Used when including sub-templates, tracks the current template hierarchy
      *
+     * @psalm-var list<string> $stack
+     * 
      * @var string[] $stack File paths
      */
     private array $stack = [];
@@ -120,7 +122,8 @@ class HelperContext implements ContextInterface
         $absolute_path = realpath("$current_directory/$file_path");
 
         if (empty($absolute_path)) {
-            throw new MissingTemplateException($absolute_path);
+            $this->unwind();
+            throw new MissingTemplateException("$current_directory/$file_path");
         }
 
         return $this->wrap($absolute_path)($variables);
@@ -167,5 +170,22 @@ class HelperContext implements ContextInterface
         }
 
         return new $this->schemes[$scheme]($content);
+    }
+
+    /**
+     * Unwinds as many output buffers as there are templates on the stack
+     * 
+     * Necessary as if any templates throw an exception we need to close as many
+     * output buffers as we have opened. Note: Other code may have opened their
+     * own buffers so only unwind as many times as we have templates on the
+     * stack.
+     */
+    private function unwind(): void
+    {
+        foreach ($this->stack as $_) {
+            ob_end_clean();
+        }
+
+        $this->stack = [];
     }
 }
