@@ -11,9 +11,8 @@ use Swiftly\Template\Exception\MissingTemplateException;
 /**
  * Facade class used to contextualise and render templates
  */
-Class Engine Implements TemplateInterface
+class Engine implements TemplateInterface
 {
-
     /** @var FileFinder $finder */
     private $finder;
 
@@ -47,17 +46,17 @@ Class Engine Implements TemplateInterface
      * @param mixed[] $variables        Template data
      * @return string                   Rendered template
      */
-    public function render( string $template, array $variables = [] ) : string
+    public function render(string $template, array $variables = []): string
     {
-        $template_path = $this->finder->find( $template );
+        $template_path = $this->finder->find($template);
 
         // Template doesn't exist
-        if ( $template_path === null ) {
-            throw new MissingTemplateException( $template );
+        if ($template_path === null) {
+            throw new MissingTemplateException($template);
         }
 
-        $context = $this->context->wrap( $template_path );
+        $context = $this->context->wrap($template_path);
 
-        return $context( $variables );
+        return $context($variables);
     }
 }

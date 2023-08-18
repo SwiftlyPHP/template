@@ -8,9 +8,8 @@ use Swiftly\Template\Exception\MissingTemplateException;
 /**
  * Interface to represent that this class can render templates in some manner
  */
-Interface TemplateInterface
+interface TemplateInterface
 {
-
     /**
      * Render the given template with the (optionally) provided data
      *
@@ -21,6 +20,5 @@ Interface TemplateInterface
      * @param mixed[] $variables        Template data
      * @return string                   Rendered template
      */
-    public function render( string $template, array $variables = [] ) : string;
-
+    public function render(string $template, array $variables = []): string;
 }

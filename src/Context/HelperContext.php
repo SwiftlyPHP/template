@@ -4,7 +4,6 @@ namespace Swiftly\Template\Context;
 
 use Swiftly\Template\ContextInterface;
 use Swiftly\Template\EscapeInterface;
-use Swiftly\Template\Escape\AttributeEscaper;
 use Swiftly\Template\Escape\HtmlEscaper;
 use Swiftly\Template\Escape\JsonEscaper;
 use Swiftly\Template\Exception\UnknownSchemeException;
@@ -18,9 +17,8 @@ use const EXTR_PREFIX_SAME;
 /**
  * Creates a helper context around the PHP file, providing escape utilities
  */
-Class HelperContext Implements ContextInterface
+class HelperContext implements ContextInterface
 {
-
     /**
      * Custom escape schemes
      *
@@ -37,10 +35,10 @@ Class HelperContext Implements ContextInterface
      *
      * @param string[] $schemes Additional schemes
      */
-    public function __construct( array $schemes = [] )
+    public function __construct(array $schemes = [])
     {
-        foreach ( $schemes as $scheme => $class ) {
-            $this->registerScheme( $scheme, $class );
+        foreach ($schemes as $scheme => $class) {
+            $this->registerScheme($scheme, $class);
         }
     }
 
@@ -52,7 +50,7 @@ Class HelperContext Implements ContextInterface
      * @param string $name   Scheme name
      * @param string $scheme Class name
      */
-    public function registerScheme( string $scheme, string $class ) : void
+    public function registerScheme(string $scheme, string $class): void
     {
         $this->schemes[$scheme] = $class;
     }
@@ -66,10 +64,10 @@ Class HelperContext Implements ContextInterface
      * @param string $file_path Path to template
      * @return callable         Renderable context
      */
-    public function wrap( string $file_path ) : callable
+    public function wrap(string $file_path): callable
     {
-        return function ( array $variables ) use ($file_path) : string {
-            extract( $variables, EXTR_PREFIX_SAME, '_' );
+        return function (array $variables) use ($file_path): string {
+            extract($variables, EXTR_PREFIX_SAME, '_');
             ob_start();
             require $file_path;
             return ob_get_clean() ?: '';
@@ -82,9 +80,9 @@ Class HelperContext Implements ContextInterface
      * @param string $content Raw content
      * @return HtmlEscaper    HTML escape context
      */
-    public function escapeHtml( string $content ) : HtmlEscaper
+    public function escapeHtml(string $content): HtmlEscaper
     {
-        return new HtmlEscaper( $content );
+        return new HtmlEscaper($content);
     }
 
     /**
@@ -93,9 +91,9 @@ Class HelperContext Implements ContextInterface
      * @param mixed $content Raw content
      * @return JsonEscaper   JSON escape context
      */
-    public function escapeJson( $content ) : JsonEscaper
+    public function escapeJson($content): JsonEscaper
     {
-        return new JsonEscaper( $content );
+        return new JsonEscaper($content);
     }
 
     /**
@@ -110,12 +108,12 @@ Class HelperContext Implements ContextInterface
      * @param mixed $content          Raw content
      * @return EscapeInterface        Escape context
      */
-    public function escape( string $scheme, $content ) : EscapeInterface
+    public function escape(string $scheme, $content): EscapeInterface
     {
-        if ( !isset( $this->schemes[$scheme] ) ) {
-            throw new UnknownSchemeException( $scheme );
+        if (!isset($this->schemes[$scheme])) {
+            throw new UnknownSchemeException($scheme);
         }
 
-        return new $this->schemes[$scheme]( $content );
+        return new $this->schemes[$scheme]($content);
     }
 }

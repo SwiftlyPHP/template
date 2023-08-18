@@ -12,9 +12,8 @@ use function gettype;
 /**
  * Exception thrown when a variable cannot be escaped via a given scheme
  */
-Class EscapeException Extends RuntimeException
+class EscapeException extends RuntimeException
 {
-
     /**
      * Indicates that the given content could not be escaped
      *
@@ -22,12 +21,15 @@ Class EscapeException Extends RuntimeException
      * @param mixed $content      Raw content
      * @param Throwable $previous Previous throwable
      */
-    public function __construct( string $scheme, $content, Throwable $previous = null )
-    {
+    public function __construct(
+        string $scheme,
+        $content,
+        Throwable $previous = null
+    ) {
         parent::__construct(
             sprintf(
                 'Could not escape variable "%s" using the "%s" scheme.',
-                is_scalar( $content ) ? (string)$content : gettype( $content ),
+                is_scalar($content) ? (string)$content : gettype($content),
                 $scheme
             ),
             0,

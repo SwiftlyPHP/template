@@ -5,11 +5,10 @@ namespace Swiftly\Template;
 use function is_file;
 
 /**
- * Very naive file finder utility
+ * Utility to search for a file across multiple directories
  */
-Class FileFinder
+class FileFinder
 {
-
     /** @var string[] $file_roots */
     private $file_paths;
 
@@ -19,7 +18,7 @@ Class FileFinder
      * @no-named-arguments
      * @param string|string[] $file_path Root path(s)
      */
-    public function __construct( $file_path )
+    public function __construct($file_path)
     {
         $this->file_paths = (array)$file_path;
     }
@@ -30,12 +29,12 @@ Class FileFinder
      * @param string $file File name
      * @return string|null Absolute path
      */
-    public function find( string $file ) : ?string
+    public function find(string $file): ?string
     {
-        foreach ( $this->file_paths as $file_path ) {
-            $path = $this->try( $file_path, $file );
+        foreach ($this->file_paths as $file_path) {
+            $path = $this->try($file_path, $file);
 
-            if ( $path !== null ) {
+            if ($path !== null) {
                 return $path;
             }
         }
@@ -50,11 +49,11 @@ Class FileFinder
      * @param string $file File name
      * @return string|null Absolute path
      */
-    private function try( string $root, string $file ) : ?string
+    private function try(string $root, string $file): ?string
     {
         $path = "$root/$file";
 
-        if ( !is_file( $path ) ) {
+        if (!is_file($path)) {
             $path = null;
         }
 
