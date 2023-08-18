@@ -30,14 +30,17 @@ Using the template renderer in its most basic form only requires a few steps of
 setup.
 
 To demonstrate, lets say we have a simple PHP template called `hi.php` that
-contains the following code:
+contains the following:
 
 ```php
-<?php
-echo "Hello world!";
+<?php // hi.php ?>
+Hello world!
 ```
 
-To render this content and capture it in a variable we must instantiate a fresh
+Normally, including a file like this would cause its content to be sent
+directly to the user.
+
+To render the content and capture it in a variable we must instantiate a fresh
 instance of the [Engine](./src/Engine.php) class. The Engine class has only one
 method `render()`, which we pass the name of the file we wish to load.
 
@@ -61,7 +64,7 @@ $output = $renderer->render("hi.php");
 The variable `$output` now contains the string `Hello world!` - the templating
 system in it's simplist form!
 
-### Going deeper
+### Going deeper
 
 While the above example may be trivial it shows several key concepts including
 how templates are found and how to render them. But what if we need to pass data
@@ -73,12 +76,13 @@ you to do just that.
 Let's say we have a template file like the following:
 
 ```php
+<?php // template.php ?>
 My name is <?php echo $name; ?> and I am <?php echo $age; ?> years old.
 ```
 
-This template expects 2 variables: `$name` and `$age` to exist and have values.
-To pass them to the template we provide an array of values to the `render()`
-method like so:
+As we can see, this template expects 2 variables: `$name` and `$age` to exist
+and have values. To pass them to the template we provide an array of values to
+the `render()` method like so:
 
 ```php
 <?php
