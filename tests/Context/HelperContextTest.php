@@ -7,6 +7,7 @@ use Swiftly\Template\Context\HelperContext;
 use Swiftly\Template\Escape\HtmlEscaper;
 use Swiftly\Template\Escape\JsonEscaper;
 use Swiftly\Template\EscapeInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Swiftly\Template\Exception\MissingTemplateException;
 use Swiftly\Template\Exception\TemplateIncludeException;
 use Swiftly\Template\Exception\UnknownSchemeException;
@@ -123,8 +124,8 @@ Class HelperContextTest Extends TestCase
             'scheme' => get_class( $scheme )
         ]);
 
+        /** @var MockObject&HelperContext $escaper */
         $escaper = $context->escape( 'scheme', 'some_content' );
-
         $escaper->expects( $this->once() )
             ->method( '__toString' )
             ->willReturn( 'some_content' );

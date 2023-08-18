@@ -4,6 +4,7 @@ namespace Swiftly\Template\Context;
 
 use Swiftly\Template\ContextInterface;
 use Swiftly\Template\EscapeInterface;
+use Exception;
 use Swiftly\Template\Exception\MissingTemplateException;
 use Swiftly\Template\Exception\TemplateIncludeException;
 use Swiftly\Template\Escape\HtmlEscaper;
@@ -13,10 +14,10 @@ use Swiftly\Template\Exception\UnknownSchemeException;
 use function extract;
 use function ob_start;
 use function ob_get_clean;
-use function array_pop;
 use function end;
 use function dirname;
 use function realpath;
+use function array_pop;
 use function ob_end_clean;
 
 use const EXTR_PREFIX_SAME;
@@ -83,15 +84,17 @@ class HelperContext implements ContextInterface
     public function wrap(string $file_path): callable
     {
         return function (array $variables) use ($file_path): string {
-            $this->stack[] = $file_path;
-            $output = '';
-            {
+            $this->push($file_path);
+            try {
                 extract($variables, EXTR_PREFIX_SAME, '_');
                 ob_start();
                 require $file_path;
-                $output = ob_get_clean() ?: '';
+                $output = ob_get_clean();
+            } catch (Exception $e) {
+                $this->unwind();
+                throw $e;
             }
-            array_pop($this->stack);
+            $this->pop();
             return $output;
         };
     }
@@ -115,15 +118,10 @@ class HelperContext implements ContextInterface
             throw new TemplateIncludeException($this);
         }
 
-        // The passed $file_path should be considered relative to the template
-        // currently being rendered
-        $current_template = end($this->stack);
-        $current_directory = dirname($current_template);
-        $absolute_path = realpath("$current_directory/$file_path");
+        $absolute_path = $this->realpath($file_path);
 
         if (empty($absolute_path)) {
-            $this->unwind();
-            throw new MissingTemplateException("$current_directory/$file_path");
+            throw new MissingTemplateException($file_path);
         }
 
         return $this->wrap($absolute_path)($variables);
@@ -173,19 +171,46 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Unwinds as many output buffers as there are templates on the stack
+     * Attempt to return the fully qualified file path
+     *
+     * Return the absolute path to the given file when taken as relative to the
+     * template currently on top of the stack.
      * 
-     * Necessary as if any templates throw an exception we need to close as many
-     * output buffers as we have opened. Note: Other code may have opened their
-     * own buffers so only unwind as many times as we have templates on the
-     * stack.
+     * @param string $file_path Relative file path
+     * @return ?string          Absolute file path
+     */
+    private function realpath(string $file_path): ?string
+    {
+        $current_template = end($this->stack);
+        $current_directory = dirname($current_template); 
+
+        return realpath("$current_directory/$file_path") ?: null;
+    }
+
+    /**
+     * Push a new template onto the end of the template hierarchy stack
+     *
+     * @param string $file_path Absolute file path
+     */
+    private function push(string $file_path): void
+    {
+        $this->stack[] = $file_path;
+    }
+
+    /**
+     * Pop the top-most template from the hierarchy stack
+     */
+    private function pop(): void
+    {
+        array_pop($this->stack);
+    }
+
+    /**
+     * Unwind a single output buffer
      */
     private function unwind(): void
     {
-        foreach ($this->stack as $_) {
-            ob_end_clean();
-        }
-
-        $this->stack = [];
+        $this->pop();
+        ob_end_clean();
     }
 }
