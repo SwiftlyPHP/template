@@ -18,10 +18,10 @@ use const ENT_HTML5;
 class HtmlEscaper implements EscapeInterface, ConfigurableInterface
 {
     /** @var string $content */
-    private $content;
+    private string $content;
 
     /** @var int $flags */
-    private $flags = ENT_QUOTES | ENT_HTML5;
+    private int $flags = ENT_QUOTES | ENT_HTML5;
 
     /**
      * Prepare the given content to be HTML escaped

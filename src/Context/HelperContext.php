@@ -26,7 +26,7 @@ class HelperContext implements ContextInterface
      *
      * @var string[] $schemes Additional schemes
      */
-    private $schemes = [];
+    private array $schemes = [];
 
     /**
      * Configure any additional escape schemes for this context

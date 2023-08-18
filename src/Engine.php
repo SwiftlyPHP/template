@@ -14,10 +14,10 @@ use Swiftly\Template\Exception\MissingTemplateException;
 class Engine implements TemplateInterface
 {
     /** @var FileFinder $finder */
-    private $finder;
+    private FileFinder $finder;
 
     /** @var ContextInterface $context */
-    private $context;
+    private ContextInterface $context;
 
     /**
      * Creates a new template engine

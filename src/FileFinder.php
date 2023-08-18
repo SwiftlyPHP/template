@@ -9,8 +9,8 @@ use function is_file;
  */
 class FileFinder
 {
-    /** @var string[] $file_roots */
-    private $file_paths;
+    /** @var string[] $file_paths */
+    private array $file_paths;
 
     /**
      * Create a FileFinder rooted in the given file path(s)

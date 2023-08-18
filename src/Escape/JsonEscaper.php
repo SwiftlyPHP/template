@@ -31,7 +31,7 @@ class JsonEscaper implements EscapeInterface, ConfigurableInterface
     private $content;
 
     /** @var int $flags */
-    private $flags = JSON_PRESERVE_ZERO_FRACTION;
+    private int $flags = JSON_PRESERVE_ZERO_FRACTION;
 
     /**
      * Prepare the given content to be converted to JSON
