@@ -16,8 +16,10 @@ class TemplateIncludeException extends RuntimeException
     public function __construct(ContextInterface $context)
     {
         parent::__construct(
-            'Method %s::include() can only be called from within templates',
-            get_class($context)
+            sprintf(
+                'Method %s::include() can only be called from within templates',
+                get_class($context)
+            )
         );
     }
 }
