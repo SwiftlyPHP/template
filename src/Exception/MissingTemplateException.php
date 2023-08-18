@@ -9,15 +9,14 @@ use function sprintf;
 /**
  * Exception thrown when a template cannot be found
  */
-Class MissingTemplateException Extends RuntimeException
+class MissingTemplateException extends RuntimeException
 {
-
     /**
      * Indicates that the given template could not be found
      *
      * @param string $template Template name
      */
-    public function __construct( string $template )
+    public function __construct(string $template)
     {
         parent::__construct(
             sprintf(

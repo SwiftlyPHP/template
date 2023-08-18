@@ -10,7 +10,5 @@ use RuntimeException;
  * At the moment this is left as a generic stub, but in a future version it may
  * be given a more specialised behaviour.
  */
-Class RenderException Extends RuntimeException
-{
-
-}
+class RenderException extends RuntimeException
+{}

@@ -13,9 +13,8 @@ use const EXTR_PREFIX_SAME;
 /**
  * Creates a standard context, treating the file as a regular PHP include
  */
-Class DefaultContext Implements ContextInterface
+class DefaultContext implements ContextInterface
 {
-
     /**
      * Wraps the template in a standard PHP file include
      *
@@ -25,10 +24,10 @@ Class DefaultContext Implements ContextInterface
      * @param string $file_path Path to template
      * @return callable         Renderable context
      */
-    public function wrap( string $file_path ) : callable
+    public function wrap(string $file_path): callable
     {
-        return static function ( array $variables ) use ($file_path) : string {
-            extract( $variables, EXTR_PREFIX_SAME, '_' );
+        return static function (array $variables) use ($file_path): string {
+            extract($variables, EXTR_PREFIX_SAME, '_');
             ob_start();
             require $file_path;
             return ob_get_clean() ?: '';

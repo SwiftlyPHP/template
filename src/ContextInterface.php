@@ -5,11 +5,10 @@ namespace Swiftly\Template;
 /**
  * Interface used to represent that this class can create rendering contexts
  */
-Interface ContextInterface
+interface ContextInterface
 {
-
     /**
-     * Wraps the given template in a new, disposable rendering context
+     * Wraps the given template in a new disposable rendering context
      *
      * @no-named-arguments
      * @psalm-return callable(mixed[]):string
@@ -17,6 +16,5 @@ Interface ContextInterface
      * @param string $file_path Path to template
      * @return callable         Renderable context
      */
-    public function wrap( string $template ) : callable;
-
+    public function wrap(string $template): callable;
 }

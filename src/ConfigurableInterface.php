@@ -9,9 +9,8 @@ namespace Swiftly\Template;
  * with the JsonEscaper to pass flags directly to `json_encode`. In the future
  * however it might be useful elsewhere.
  */
-Interface ConfigurableInterface
+interface ConfigurableInterface
 {
-
     /**
      * Pass configuration flags into the object
      *
@@ -21,6 +20,5 @@ Interface ConfigurableInterface
      * @param int $flags Configuration flags
      * @return self      Chainable
      */
-    public function with( int $flags ) /* : self */;
-
+    public function with(int $flags) /* : self */;
 }

@@ -15,21 +15,20 @@ use const ENT_HTML5;
  *
  * @implements EscapeInterface<string>
  */
-Class HtmlEscaper Implements EscapeInterface, ConfigurableInterface
+class HtmlEscaper implements EscapeInterface, ConfigurableInterface
 {
-
     /** @var string $content */
-    private $content;
+    private string $content;
 
     /** @var int $flags */
-    private $flags = ENT_QUOTES | ENT_HTML5;
+    private int $flags = ENT_QUOTES | ENT_HTML5;
 
     /**
      * Prepare the given content to be HTML escaped
      *
      * @param string $content Raw content
      */
-    public function __construct( $content )
+    public function __construct($content)
     {
         $this->content = $content;
     }
@@ -40,7 +39,7 @@ Class HtmlEscaper Implements EscapeInterface, ConfigurableInterface
      * @param int $flags Encoding flags
      * @return self      Chainable
      */
-    public function with( int $flags ) : self
+    public function with(int $flags): self
     {
         $this->flags = $flags;
 
@@ -52,9 +51,9 @@ Class HtmlEscaper Implements EscapeInterface, ConfigurableInterface
      *
      * @return string Escaped content
      */
-    public function escape() : string
+    public function escape(): string
     {
-        return htmlentities( $this->content, $this->flags );
+        return htmlentities($this->content, $this->flags);
     }
 
     /**
@@ -64,7 +63,7 @@ Class HtmlEscaper Implements EscapeInterface, ConfigurableInterface
      *
      * @return string Scheme name
      */
-    public function name() : string
+    public function name(): string
     {
         return 'html';
     }

@@ -19,9 +19,8 @@ use const JSON_THROW_ON_ERROR;
  * @template T
  * @implements EscapeInterface<T>
  */
-Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
+class JsonEscaper implements EscapeInterface, ConfigurableInterface
 {
-
     /**
      * The content to be escaped
      *
@@ -32,7 +31,7 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
     private $content;
 
     /** @var int $flags */
-    private $flags = JSON_PRESERVE_ZERO_FRACTION;
+    private int $flags = JSON_PRESERVE_ZERO_FRACTION;
 
     /**
      * Prepare the given content to be converted to JSON
@@ -41,7 +40,7 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
      *
      * @param mixed $content Raw content
      */
-    public function __construct( $content )
+    public function __construct($content)
     {
         $this->content = $content;
     }
@@ -52,7 +51,7 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
      * @param int $flags Encoding flags
      * @return self      Chainable
      */
-    public function with( int $flags ) : self
+    public function with(int $flags): self
     {
         $this->flags = $flags;
 
@@ -64,7 +63,7 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
      *
      * @return self Chainable
      */
-    public function pretty() : self
+    public function pretty(): self
     {
         $this->flags = $this->flags | JSON_PRETTY_PRINT;
 
@@ -77,15 +76,15 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
      * @throws EscapeException Failed to escape
      * @return string          Escaped content
      */
-    public function escape() : string
+    public function escape(): string
     {
         try {
             $escaped = json_encode(
                 $this->content,
                 $this->flags | JSON_THROW_ON_ERROR
             );
-        } catch ( JsonException $e ) {
-            throw new EscapeException( $this->name(), $this->content, $e );
+        } catch (JsonException $e) {
+            throw new EscapeException($this->name(), $this->content, $e);
         }
 
         return $escaped;
@@ -98,7 +97,7 @@ Class JsonEscaper Implements EscapeInterface, ConfigurableInterface
      *
      * @return string Scheme name
      */
-    public function name() : string
+    public function name(): string
     {
         return 'json';
     }

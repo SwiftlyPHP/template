@@ -10,9 +10,8 @@ use Swiftly\Template\Exception\EscapeException;
  *
  * @template T
  */
-Interface EscapeInterface Extends Stringable
+interface EscapeInterface extends Stringable
 {
-
     /**
      * Wrap the given value to be escaped later
      *
@@ -20,7 +19,7 @@ Interface EscapeInterface Extends Stringable
      *
      * @param mixed $content Raw content
      */
-    public function __construct( $content );
+    public function __construct($content);
 
     /**
      * Escape the content using the appropriate scheme
@@ -28,7 +27,7 @@ Interface EscapeInterface Extends Stringable
      * @throws EscapeException Failed to escape
      * @return string          Escaped content
      */
-    public function escape() : string;
+    public function escape(): string;
 
     /**
      * Returns the name of this scheme
@@ -37,6 +36,5 @@ Interface EscapeInterface Extends Stringable
      *
      * @return string Scheme name
      */
-    public function name() : string;
-
+    public function name(): string;
 }

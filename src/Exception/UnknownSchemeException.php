@@ -9,15 +9,14 @@ use function sprintf;
 /**
  * Exception thrown when a requested escape scheme is unavailable
  */
-Class UnknownSchemeException Extends RuntimeException
+class UnknownSchemeException extends RuntimeException
 {
-
     /**
      * Indicates that the given escape scheme could not be found
      *
      * @param string $scheme      Scheme name
      */
-    public function __construct( string $scheme )
+    public function __construct(string $scheme)
     {
         parent::__construct(
             sprintf(
