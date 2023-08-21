@@ -4,19 +4,18 @@ namespace Swiftly\Template\Context;
 
 use Swiftly\Template\ContextInterface;
 use Swiftly\Template\EscapeInterface;
-use Exception;
-use Swiftly\Template\Exception\MissingTemplateException;
 use Swiftly\Template\Exception\TemplateIncludeException;
+use Swiftly\Template\Exception\MissingTemplateException;
 use Swiftly\Template\Escape\HtmlEscaper;
 use Swiftly\Template\Escape\JsonEscaper;
 use Swiftly\Template\Exception\UnknownSchemeException;
 
-use function extract;
-use function ob_start;
-use function ob_get_clean;
-use function end;
 use function dirname;
 use function realpath;
+use function extract;
+use function ob_get_contents;
+use function end;
+use function ob_start;
 use function array_pop;
 use function ob_end_clean;
 
@@ -84,17 +83,12 @@ class HelperContext implements ContextInterface
     public function wrap(string $file_path): callable
     {
         return function (array $variables) use ($file_path): string {
-            $this->push($file_path);
+            $this->enter($file_path);
             try {
-                extract($variables, EXTR_PREFIX_SAME, '_');
-                ob_start();
-                require $file_path;
-                $output = ob_get_clean();
-            } catch (Exception $e) {
-                $this->unwind();
-                throw $e;
+                $output = $this->content($variables);
+            } finally {
+                $this->leave();
             }
-            $this->pop();
             return $output;
         };
     }
@@ -108,9 +102,11 @@ class HelperContext implements ContextInterface
      *
      * @no-named-arguments
      *
-     * @param string $file_path  Relative file path
-     * @param mixed[] $variables Template data
-     * @return string            Rendered template
+     * @throws TemplateIncludeException Called from non-template context
+     * @throws MissingTemplateException Template cannot be found
+     * @param string $file_path         Relative file path
+     * @param mixed[] $variables        Template data
+     * @return string                   Rendered template
      */
     public function include(string $file_path, array $variables = []): string
     {
@@ -181,10 +177,33 @@ class HelperContext implements ContextInterface
      */
     private function realpath(string $file_path): ?string
     {
-        $current_template = end($this->stack);
+        $current_template = $this->current();
         $current_directory = dirname($current_template); 
 
         return realpath("$current_directory/$file_path") ?: null;
+    }
+
+    /**
+     * Load the top-most template and return any rendered content
+     * 
+     * @param mixed[] $variables Template data
+     * @return string            Captured content
+     */
+    private function content(array $variables): string
+    {
+        extract($variables, EXTR_PREFIX_SAME, '_');
+        require $this->current();
+        return ob_get_contents() ?: '';
+    }
+
+    /**
+     * Return the path of the template currently being processed
+     * 
+     * @return string Absolute file path
+     */
+    private function current(): string
+    {
+        return end($this->stack);
     }
 
     /**
@@ -192,25 +211,18 @@ class HelperContext implements ContextInterface
      *
      * @param string $file_path Absolute file path
      */
-    private function push(string $file_path): void
+    private function enter(string $file_path): void
     {
         $this->stack[] = $file_path;
+        ob_start();
     }
 
     /**
      * Pop the top-most template from the hierarchy stack
      */
-    private function pop(): void
+    private function leave(): void
     {
         array_pop($this->stack);
-    }
-
-    /**
-     * Unwind a single output buffer
-     */
-    private function unwind(): void
-    {
-        $this->pop();
         ob_end_clean();
     }
 }
