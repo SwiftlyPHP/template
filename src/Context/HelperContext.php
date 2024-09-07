@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Swiftly\Template\Context;
 
@@ -30,7 +30,7 @@ class HelperContext implements ContextInterface
      * Used when including sub-templates, tracks the current template hierarchy
      *
      * @psalm-var list<string> $stack
-     * 
+     *
      * @var string[] $stack File paths
      */
     private array $stack = [];
@@ -65,6 +65,7 @@ class HelperContext implements ContextInterface
      *
      * @param string $name   Scheme name
      * @param string $scheme Class name
+     * @param string $class
      */
     public function registerScheme(string $scheme, string $class): void
     {
@@ -171,21 +172,21 @@ class HelperContext implements ContextInterface
      *
      * Return the absolute path to the given file when taken as relative to the
      * template currently on top of the stack.
-     * 
+     *
      * @param string $file_path Relative file path
      * @return ?string          Absolute file path
      */
     private function realpath(string $file_path): ?string
     {
         $current_template = $this->current();
-        $current_directory = dirname($current_template); 
+        $current_directory = dirname($current_template);
 
         return realpath("$current_directory/$file_path") ?: null;
     }
 
     /**
      * Load the top-most template and return any rendered content
-     * 
+     *
      * @param mixed[] $variables Template data
      * @return string            Captured content
      */
@@ -198,7 +199,7 @@ class HelperContext implements ContextInterface
 
     /**
      * Return the path of the template currently being processed
-     * 
+     *
      * @return string Absolute file path
      */
     private function current(): string

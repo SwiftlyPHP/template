@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Swiftly\Template;
 
@@ -13,8 +13,8 @@ interface ContextInterface
      * @no-named-arguments
      * @psalm-return callable(mixed[]):string
      *
-     * @param string $file_path Path to template
-     * @return callable         Renderable context
+     * @param string $template Path to template
+     * @return callable        Renderable context
      */
     public function wrap(string $template): callable;
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Swiftly\Template\Exception;
 
@@ -11,4 +11,5 @@ use RuntimeException;
  * be given a more specialised behaviour.
  */
 class RenderException extends RuntimeException
-{}
+{
+}
