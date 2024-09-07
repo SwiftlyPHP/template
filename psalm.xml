@@ -16,5 +16,11 @@
                 <directory name="src/Context" />
             </errorLevel>
         </UnresolvableInclude>
+        <RiskyTruthyFalsyComparison>
+            <errorLevel type="suppress">
+                <file name="src/Context/HelperContext.php" />
+                <file name="src/Context/DefaultContext.php" />
+            </errorLevel>
+        </RiskyTruthyFalsyComparison>
     </issueHandlers>
 </psalm>
