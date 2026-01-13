@@ -11,28 +11,24 @@ use function is_file;
  */
 class FileFinder
 {
-    /** @var string[] $file_paths */
+    /** @var string[] */
     private array $file_paths;
 
     /**
-     * Create a FileFinder rooted in the given file path(s)
+     * Create a FileFinder rooted in the given file path(s).
      *
-     * @no-named-arguments
-     * @param string|string[] $file_path Root path(s)
+     * @param string|string[] $filePath
      */
-    public function __construct($file_path)
+    public function __construct(string|array $filePath)
     {
         $this->file_paths = array_map(
-            fn ($path) => rtrim($path, '/\\'),
-            (array)$file_path
+            static fn (string $path): string => rtrim($path, '/\\'),
+            (array) $filePath,
         );
     }
 
     /**
-     * Attempt to find the given file and return its path
-     *
-     * @param string $file File name
-     * @return string|null Absolute path
+     * Attempt to find the given file and return its path.
      */
     public function find(string $file): ?string
     {
@@ -48,11 +44,7 @@ class FileFinder
     }
 
     /**
-     * Check to see if the given file exists in the `$root` directory
-     *
-     * @param string $root Root path
-     * @param string $file File name
-     * @return string|null Absolute path
+     * Check to see if the given file exists in the `$root` directory.
      */
     private function try(string $root, string $file): ?string
     {

@@ -27,29 +27,21 @@ use const EXTR_PREFIX_SAME;
 class HelperContext implements ContextInterface
 {
     /**
-     * Used when including sub-templates, tracks the current template hierarchy
+     * Used when including sub-templates, tracks the current template hierarchy.
      *
-     * @psalm-var list<string> $stack
-     *
-     * @var string[] $stack File paths
+     * @var list<string>
      */
     private array $stack = [];
 
     /**
-     * Custom escape schemes
-     *
-     * @psalm-var array<string,class-string<EscapeInterface>> $schemes
-     *
-     * @var string[] $schemes Additional schemes
+     * @var array<string,class-string<EscapeInterface>>
      */
     private array $schemes = [];
 
     /**
-     * Configure any additional escape schemes for this context
+     * Configure any additional escape schemes for this context.
      *
-     * @psalm-param array<string,class-string<EscapeInterface>> $schemes
-     *
-     * @param string[] $schemes Additional schemes
+     * @param array<string,class-string<EscapeInterface>> $schemes
      */
     public function __construct(array $schemes = [])
     {
@@ -59,13 +51,9 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Register a new escape scheme with the context
+     * Register a new escape scheme with the context.
      *
-     * @psalm-param class-string<EscapeInterface> $class
-     *
-     * @param string $name   Scheme name
-     * @param string $scheme Class name
-     * @param string $class
+     * @param class-string<EscapeInterface> $class
      */
     public function registerScheme(string $scheme, string $class): void
     {
@@ -73,18 +61,14 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Wraps the template and provides additional helper utilities
+     * Wraps the template and provides additional helper utilities.
      *
-     * @no-named-arguments
-     * @psalm-return callable(mixed[]):string
-     *
-     * @param string $file_path Path to template
-     * @return callable         Renderable context
+     * @return callable(array<string, mixed>):string
      */
-    public function wrap(string $file_path): callable
+    public function wrap(string $template): callable
     {
-        return function (array $variables) use ($file_path): string {
-            $this->enter($file_path);
+        return function (array $variables) use ($template): string {
+            $this->enter($template);
             try {
                 $output = $this->content($variables);
             } finally {
@@ -95,40 +79,34 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Utility to include a sub-template
+     * Utility to include a sub-template.
      *
      * The given file path is relative the the template you are including from,
      * allowing you to avoid use of constants such as `__DIR__` or the `dirname`
      * function.
      *
-     * @no-named-arguments
-     *
      * @throws TemplateIncludeException Called from non-template context
      * @throws MissingTemplateException Template cannot be found
-     * @param string $file_path         Relative file path
-     * @param mixed[] $variables        Template data
-     * @return string                   Rendered template
+     *
+     * @param array<string, mixed> $variables
      */
-    public function include(string $file_path, array $variables = []): string
+    public function include(string $filePath, array $variables = []): string
     {
         if (empty($this->stack)) {
             throw new TemplateIncludeException($this);
         }
 
-        $absolute_path = $this->realpath($file_path);
+        $absolutePath = $this->realpath($filePath);
 
-        if (empty($absolute_path)) {
-            throw new MissingTemplateException($file_path);
+        if (empty($absolutePath)) {
+            throw new MissingTemplateException($filePath);
         }
 
-        return $this->wrap($absolute_path)($variables);
+        return $this->wrap($absolutePath)($variables);
     }
 
     /**
-     * Escape the given string to make it safe for use in HTML
-     *
-     * @param string $content Raw content
-     * @return HtmlEscaper    HTML escape context
+     * Escape the given string to make it safe for use in HTML.
      */
     public function escapeHtml(string $content): HtmlEscaper
     {
@@ -136,29 +114,27 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Convert the given content into a JSON string
+     * Convert the given content into a JSON string.
      *
-     * @param mixed $content Raw content
      * @return JsonEscaper   JSON escape context
      */
-    public function escapeJson($content): JsonEscaper
+    public function escapeJson(mixed $content): JsonEscaper
     {
         return new JsonEscaper($content);
     }
 
     /**
-     * Escape the given content with the names scheme
+     * Escape the given content with the names scheme.
      *
      * @template T
-     * @psalm-param T $content
-     * @psalm-return EscapeInterface<T>
      *
      * @throws UnknownSchemeException Failed to find scheme
-     * @param string $scheme          Scheme name
-     * @param mixed $content          Raw content
-     * @return EscapeInterface        Escape context
+     *
+     * @param T $content
+     *
+     * @return EscapeInterface<T>
      */
-    public function escape(string $scheme, $content): EscapeInterface
+    public function escape(string $scheme, mixed $content): EscapeInterface
     {
         if (!isset($this->schemes[$scheme])) {
             throw new UnknownSchemeException($scheme);
@@ -168,27 +144,23 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Attempt to return the fully qualified file path
+     * Attempt to return the fully qualified file path.
      *
      * Return the absolute path to the given file when taken as relative to the
      * template currently on top of the stack.
-     *
-     * @param string $file_path Relative file path
-     * @return ?string          Absolute file path
      */
-    private function realpath(string $file_path): ?string
+    private function realpath(string $filePath): ?string
     {
-        $current_template = $this->current();
-        $current_directory = dirname($current_template);
+        $currentTemplate = $this->current();
+        $currentDirectory = dirname($currentTemplate);
 
-        return realpath("$current_directory/$file_path") ?: null;
+        return realpath("{$currentDirectory}/{$filePath}") ?: null;
     }
 
     /**
-     * Load the top-most template and return any rendered content
+     * Load the top-most template and return any rendered content.
      *
-     * @param mixed[] $variables Template data
-     * @return string            Captured content
+     * @param array<string,mixed> $variables
      */
     private function content(array $variables): string
     {
@@ -198,9 +170,7 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Return the path of the template currently being processed
-     *
-     * @return string Absolute file path
+     * Return the path of the template currently being processed.
      */
     private function current(): string
     {
@@ -208,18 +178,16 @@ class HelperContext implements ContextInterface
     }
 
     /**
-     * Push a new template onto the end of the template hierarchy stack
-     *
-     * @param string $file_path Absolute file path
+     * Push a new template onto the end of the template hierarchy stack.
      */
-    private function enter(string $file_path): void
+    private function enter(string $filePath): void
     {
-        $this->stack[] = $file_path;
+        $this->stack[] = $filePath;
         ob_start();
     }
 
     /**
-     * Pop the top-most template from the hierarchy stack
+     * Pop the top-most template from the hierarchy stack.
      */
     private function leave(): void
     {

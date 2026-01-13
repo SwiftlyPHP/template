@@ -10,13 +10,13 @@ use Swiftly\Template\Exception\MissingTemplateException;
 
 /**
  * Facade class used to contextualise and render templates
+ *
+ * @upgrade:php8.1 Mark properties as readonly
+ * @upgrade:php8.1 Use `new` to initialise DefaultContext + drop nullable hint 
  */
 class Engine implements TemplateInterface
 {
-    /** @var FileFinder $finder */
     private FileFinder $finder;
-
-    /** @var ContextInterface $context */
     private ContextInterface $context;
 
     /**
@@ -24,14 +24,10 @@ class Engine implements TemplateInterface
      *
      * Allows you to specify how and from where templates are loaded, as well as
      * (optionally) the context they should be rendered in.
-     *
-     * @no-named-arguments
-     * @param FileFinder $finder        Template finder
-     * @param ContextInterface $context Rendering context
      */
     public function __construct(
         FileFinder $finder,
-        ContextInterface $context = null
+        ?ContextInterface $context = null,
     ) {
         $this->finder = $finder;
         $this->context = $context ?: new DefaultContext();
@@ -40,11 +36,9 @@ class Engine implements TemplateInterface
     /**
      * Render the given PHP file and pass the given data
      *
-     * @no-named-arguments
      * @throws MissingTemplateException Failed to find template
-     * @param string $template          Template name
-     * @param mixed[] $variables        Template data
-     * @return string                   Rendered template
+     *
+     * @param array<string, mixed> $variables
      */
     public function render(string $template, array $variables = []): string
     {

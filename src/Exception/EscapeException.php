@@ -16,15 +16,11 @@ class EscapeException extends RuntimeException
 {
     /**
      * Indicates that the given content could not be escaped
-     *
-     * @param string $scheme      Scheme name
-     * @param mixed $content      Raw content
-     * @param Throwable $previous Previous throwable
      */
     public function __construct(
         string $scheme,
-        $content,
-        ?Throwable $previous = null
+        mixed $content,
+        ?Throwable $previous = null,
     ) {
         parent::__construct(
             sprintf(
@@ -33,7 +29,7 @@ class EscapeException extends RuntimeException
                 $scheme
             ),
             0,
-            $previous
+            $previous,
         );
     }
 }

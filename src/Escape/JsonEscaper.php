@@ -21,35 +21,22 @@ use const JSON_THROW_ON_ERROR;
  */
 class JsonEscaper implements EscapeInterface, ConfigurableInterface
 {
-    /**
-     * The content to be escaped
-     *
-     * @psalm-var T $content
-     *
-     * @var mixed $content Raw content
-     */
-    private $content;
-
-    /** @var int $flags */
     private int $flags = JSON_PRESERVE_ZERO_FRACTION;
 
     /**
-     * Prepare the given content to be converted to JSON
+     * Prepare the given content to be converted to JSON.
      *
-     * @psalm-param T $content
-     *
-     * @param mixed $content Raw content
+     * @param T $content
      */
-    public function __construct($content)
-    {
-        $this->content = $content;
+    public function __construct(
+        private mixed $content,
+    ) {
     }
 
     /**
-     * Set flags to use on calls to `json_encode`
+     * Set flags to use on calls to `json_encode`.
      *
-     * @param int $flags Encoding flags
-     * @return self      Chainable
+     * @return $this
      */
     public function with(int $flags): self
     {
@@ -59,9 +46,9 @@ class JsonEscaper implements EscapeInterface, ConfigurableInterface
     }
 
     /**
-     * Format and prettify the JSON becfore displaying it
+     * Format and prettify the JSON becfore displaying it.
      *
-     * @return self Chainable
+     * @return $this
      */
     public function pretty(): self
     {
@@ -71,10 +58,9 @@ class JsonEscaper implements EscapeInterface, ConfigurableInterface
     }
 
     /**
-     * Escape content as JSON
+     * Escape content as JSON.
      *
      * @throws EscapeException Failed to escape
-     * @return string          Escaped content
      */
     public function escape(): string
     {
@@ -91,22 +77,15 @@ class JsonEscaper implements EscapeInterface, ConfigurableInterface
     }
 
     /**
-     * Return the short name of this scheme
+     * Return the short name of this scheme.
      *
      * @psalm-return non-empty-lowercase-string
-     *
-     * @return string Scheme name
      */
     public function name(): string
     {
         return 'json';
     }
 
-    /**
-     * Convert this object to a string by forwarding calls to escape
-     *
-     * @return string Escaped content
-     */
     public function __toString()
     {
         return $this->escape();

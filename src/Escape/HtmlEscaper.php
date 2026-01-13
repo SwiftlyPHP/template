@@ -17,27 +17,20 @@ use const ENT_HTML5;
  */
 class HtmlEscaper implements EscapeInterface, ConfigurableInterface
 {
-    /** @var string $content */
-    private string $content;
-
-    /** @var int $flags */
     private int $flags = ENT_QUOTES | ENT_HTML5;
 
     /**
-     * Prepare the given content to be HTML escaped
-     *
-     * @param string $content Raw content
+     * Prepare the given content to be HTML escaped.
      */
-    public function __construct($content)
-    {
-        $this->content = $content;
+    public function __construct(
+        private string $content,
+    ) {
     }
 
     /**
-     * Set flags to use on calls to `htmlentities`
+     * Set flags to use on calls to `htmlentities`.
      *
-     * @param int $flags Encoding flags
-     * @return self      Chainable
+     * @return $this
      */
     public function with(int $flags): self
     {
@@ -47,9 +40,7 @@ class HtmlEscaper implements EscapeInterface, ConfigurableInterface
     }
 
     /**
-     * Escape content for HTML
-     *
-     * @return string Escaped content
+     * Escape content for HTML.
      */
     public function escape(): string
     {
@@ -57,23 +48,16 @@ class HtmlEscaper implements EscapeInterface, ConfigurableInterface
     }
 
     /**
-     * Return the short name of this scheme
+     * Return the short name of this scheme.
      *
      * @psalm-return non-empty-lowercase-string
-     *
-     * @return string Scheme name
      */
     public function name(): string
     {
         return 'html';
     }
 
-    /**
-     * Convert this object to a string by forwarding calls to escape
-     *
-     * @return string Escaped content
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->escape();
     }

@@ -13,8 +13,6 @@ class MissingTemplateException extends RuntimeException
 {
     /**
      * Indicates that the given template could not be found
-     *
-     * @param string $template Template name
      */
     public function __construct(string $template)
     {

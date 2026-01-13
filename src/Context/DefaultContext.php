@@ -18,18 +18,14 @@ class DefaultContext implements ContextInterface
     /**
      * Wraps the template in a standard PHP file include
      *
-     * @no-named-arguments
-     * @psalm-return callable(mixed[]):string
-     *
-     * @param string $file_path Path to template
-     * @return callable         Renderable context
+     * @return callable(array<string,mixed>):string
      */
-    public function wrap(string $file_path): callable
+    public function wrap(string $template): callable
     {
-        return static function (array $variables) use ($file_path): string {
+        return static function (array $variables) use ($template): string {
             extract($variables, EXTR_PREFIX_SAME, '_');
             ob_start();
-            require $file_path;
+            require $template;
             return ob_get_clean() ?: '';
         };
     }
