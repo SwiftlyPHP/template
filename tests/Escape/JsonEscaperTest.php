@@ -1,26 +1,25 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Swiftly\Template\Tests\Escape;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Swiftly\Template\Escape\JsonEscaper;
 use Swiftly\Template\Exception\EscapeException;
-use stdClass;
 use Throwable;
 
 use function json_encode;
 
-use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_HEX_AMP;
+use const JSON_PRESERVE_ZERO_FRACTION;
 
-Class JsonEscaperTest Extends TestCase
+class JsonEscaperTest extends TestCase
 {
-
     /** @var JsonEscaper $escaper */
     private $escaper;
 
     /** @var array EXAMPLE_CONTENT */
-    const EXAMPLE_CONTENT = [
+    public const EXAMPLE_CONTENT = [
         'example' => 'some_string',
         'nested' => [
             'id' => 42.0,
@@ -28,42 +27,42 @@ Class JsonEscaperTest Extends TestCase
         ]
     ];
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->escaper = new JsonEscaper( self::EXAMPLE_CONTENT );
+        $this->escaper = new JsonEscaper(self::EXAMPLE_CONTENT);
     }
 
-    public function testCanGetSchemeName() : void
+    public function testCanGetSchemeName(): void
     {
-        self::assertSame( 'json', $this->escaper->name() );
+        self::assertSame('json', $this->escaper->name());
     }
 
-    public function testCanEscapeContent() : void
+    public function testCanEscapeContent(): void
     {
         self::assertSame(
-            json_encode( self::EXAMPLE_CONTENT, JSON_PRESERVE_ZERO_FRACTION ),
+            json_encode(self::EXAMPLE_CONTENT, JSON_PRESERVE_ZERO_FRACTION),
             $this->escaper->escape()
         );
     }
 
-    public function testCanCastToString() : void
+    public function testCanCastToString(): void
     {
-        self::assertTrue( method_exists( $this->escaper, '__toString' ) );
+        self::assertTrue(method_exists($this->escaper, '__toString'));
         self::assertSame(
-            json_encode( self::EXAMPLE_CONTENT, JSON_PRESERVE_ZERO_FRACTION ),
+            json_encode(self::EXAMPLE_CONTENT, JSON_PRESERVE_ZERO_FRACTION),
             (string)$this->escaper
         );
     }
 
-    public function testCanConfigureEscapeFlags() : void
+    public function testCanConfigureEscapeFlags(): void
     {
         self::assertSame(
-            json_encode( self::EXAMPLE_CONTENT, JSON_HEX_AMP ),
-            $this->escaper->with( JSON_HEX_AMP )->escape()
+            json_encode(self::EXAMPLE_CONTENT, JSON_HEX_AMP),
+            $this->escaper->with(JSON_HEX_AMP)->escape()
         );
     }
 
-    public function testCanPrettyPrintContent() : void
+    public function testCanPrettyPrintContent(): void
     {
         self::assertSame(
             json_encode(
@@ -74,17 +73,17 @@ Class JsonEscaperTest Extends TestCase
         );
     }
 
-    public function testThrowsOnInvalidInput() : void
+    public function testThrowsOnInvalidInput(): void
     {
-        self::expectException( EscapeException::class );
+        self::expectException(EscapeException::class);
 
         // Json can't do references or recursion
-        $example1 = new stdClass;
-        $example2 = new stdClass;
+        $example1 = new stdClass();
+        $example2 = new stdClass();
 
         $example1->ref = $example2;
         $example2->ref = $example1;
 
-        ( new JsonEscaper( $example1 ) )->escape();
+        (new JsonEscaper($example1))->escape();
     }
 }

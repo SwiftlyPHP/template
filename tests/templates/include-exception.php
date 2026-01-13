@@ -4,7 +4,7 @@
  * attempting to include non-existant templates will cause an exception
  *
  * @package Swiftly\Template\Tests
- * 
+ *
  * @var Swiftly\Template\Context\HelperContext $this
  */
 ?>

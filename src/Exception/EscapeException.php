@@ -5,9 +5,9 @@ namespace Swiftly\Template\Exception;
 use RuntimeException;
 use Throwable;
 
-use function sprintf;
-use function is_scalar;
 use function gettype;
+use function is_scalar;
+use function sprintf;
 
 /**
  * Exception thrown when a variable cannot be escaped via a given scheme

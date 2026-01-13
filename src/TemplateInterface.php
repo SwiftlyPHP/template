@@ -2,8 +2,8 @@
 
 namespace Swiftly\Template;
 
-use Swiftly\Template\Exception\RenderException;
 use Swiftly\Template\Exception\MissingTemplateException;
+use Swiftly\Template\Exception\RenderException;
 
 /**
  * Interface to represent that this class can render templates in some manner

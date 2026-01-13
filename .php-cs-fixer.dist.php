@@ -1,36 +1,38 @@
 <?php declare(strict_types=1);
 
-$finder = (new PhpCsFixer\Finder())
-    ->in(__DIR__)
-    ->exclude([
-       'tests'
-    ]);
+use PhpCsFixer\Finder;
 
 return (new PhpCsFixer\Config())
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        Finder::create()->in(__DIR__)
+    )
+    ->setUsingCache(false)
     ->setRules([
         '@PSR12' => true,
-        // ** File **
-        'declare_parentheses' => true,
-        'blank_line_after_opening_tag' => false,
+
+        // File layout
         'declare_strict_types' => true,
-        // ** Syntax **
-        'list_syntax' => [
-            'syntax' => 'short',
-        ],
-        'single_quote' => true,
-        // ** Imports **
+        'blank_line_after_opening_tag' => false,
+        'no_closing_tag' => true,
+
+        // Imports
         'global_namespace_import' => [
             'import_classes' => true,
             'import_functions' => true,
             'import_constants' => true,
         ],
-        'no_unused_imports' => false,
-        // ** PHPDoc **
-        'phpdoc_add_missing_param_annotation' => [
-            'only_untyped' => false,
+        'ordered_imports' => [
+            'sort_algorithm' => 'alpha',
+            'imports_order' => ['class', 'function', 'const'],
         ],
-        'phpdoc_indent' => true
-    ])
-    ->setRiskyAllowed(true)
-    ->setUsingCache(false)
-    ->setFinder($finder);
+        'no_unused_imports' => false,
+
+        // Array usage
+        'array_push' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'list_syntax' => ['syntax' => 'short'],
+
+        // Function usage
+        'strict_param' => true,
+    ]);

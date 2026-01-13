@@ -9,4 +9,4 @@
  * @var string $html
  */
 ?>
-<?php echo $this->escapeHtml( $html );
+<?php echo $this->escapeHtml($html);

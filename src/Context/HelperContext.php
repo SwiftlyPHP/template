@@ -3,21 +3,21 @@
 namespace Swiftly\Template\Context;
 
 use Swiftly\Template\ContextInterface;
-use Swiftly\Template\EscapeInterface;
-use Swiftly\Template\Exception\TemplateIncludeException;
-use Swiftly\Template\Exception\MissingTemplateException;
 use Swiftly\Template\Escape\HtmlEscaper;
 use Swiftly\Template\Escape\JsonEscaper;
+use Swiftly\Template\EscapeInterface;
+use Swiftly\Template\Exception\MissingTemplateException;
+use Swiftly\Template\Exception\TemplateIncludeException;
 use Swiftly\Template\Exception\UnknownSchemeException;
 
-use function dirname;
-use function realpath;
-use function extract;
-use function ob_get_contents;
-use function end;
-use function ob_start;
 use function array_pop;
+use function dirname;
+use function end;
+use function extract;
 use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function realpath;
 
 use const EXTR_PREFIX_SAME;
 

@@ -5,8 +5,8 @@ namespace Swiftly\Template\Exception;
 use RuntimeException;
 use Swiftly\Template\ContextInterface;
 
-use function sprintf;
 use function get_class;
+use function sprintf;
 
 /**
  * Exception thrown when calling include from a non-template context

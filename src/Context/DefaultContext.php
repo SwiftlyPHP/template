@@ -5,8 +5,8 @@ namespace Swiftly\Template\Context;
 use Swiftly\Template\ContextInterface;
 
 use function extract;
-use function ob_start;
 use function ob_get_clean;
+use function ob_start;
 
 use const EXTR_PREFIX_SAME;
 

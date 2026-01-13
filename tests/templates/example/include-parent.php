@@ -4,7 +4,7 @@
  * verify that we can include templates located in parent directories
  *
  * @package Swiftly\Template\Tests
- * 
+ *
  * @var Swiftly\Template\Context\HelperContext $this
  * @var string $name
  */

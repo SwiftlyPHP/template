@@ -2,17 +2,17 @@
 
 namespace Swiftly\Template;
 
-use Swiftly\Template\TemplateInterface;
-use Swiftly\Template\FileFinder;
-use Swiftly\Template\ContextInterface;
 use Swiftly\Template\Context\DefaultContext;
+use Swiftly\Template\ContextInterface;
 use Swiftly\Template\Exception\MissingTemplateException;
+use Swiftly\Template\FileFinder;
+use Swiftly\Template\TemplateInterface;
 
 /**
  * Facade class used to contextualise and render templates
  *
  * @upgrade:php8.1 Mark properties as readonly
- * @upgrade:php8.1 Use `new` to initialise DefaultContext + drop nullable hint 
+ * @upgrade:php8.1 Use `new` to initialise DefaultContext + drop nullable hint
  */
 class Engine implements TemplateInterface
 {

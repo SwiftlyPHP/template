@@ -2,13 +2,13 @@
 
 namespace Swiftly\Template\Escape;
 
-use Swiftly\Template\EscapeInterface;
 use Swiftly\Template\ConfigurableInterface;
+use Swiftly\Template\EscapeInterface;
 
 use function htmlentities;
 
-use const ENT_QUOTES;
 use const ENT_HTML5;
+use const ENT_QUOTES;
 
 /**
  * Escapes content to make it safe for inclusion in HTML

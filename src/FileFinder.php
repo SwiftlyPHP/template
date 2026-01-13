@@ -3,8 +3,8 @@
 namespace Swiftly\Template;
 
 use function array_map;
-use function rtrim;
 use function is_file;
+use function rtrim;
 
 /**
  * Utility to search for a file across multiple directories

@@ -2,9 +2,9 @@
 
 namespace Swiftly\Template\Escape;
 
-use Swiftly\Template\EscapeInterface;
-use Swiftly\Template\ConfigurableInterface;
 use JsonException;
+use Swiftly\Template\ConfigurableInterface;
+use Swiftly\Template\EscapeInterface;
 use Swiftly\Template\Exception\EscapeException;
 
 use function json_encode;
