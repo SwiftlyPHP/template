@@ -24,7 +24,7 @@ class EscapeException extends RuntimeException
     public function __construct(
         string $scheme,
         $content,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct(
             sprintf(
